@@ -109,6 +109,38 @@ private function handleUrls($text, $filter = '')
 
 ---
 
+
+
+---
+
+````php
+private function handleUrls($text, $filter = '')
+{
+    preg_match_all(
+        '/<img.*src="(.*)".*\/>/Ui', $text, $matchesImages
+    );
+
+    if (isset($matchesImages[1]) && !empty($matchesImages[1])) {
+        foreach ($matchesImages[1] as $key => $file) {
+            if (!empty($filter) && !stristr($file, $filter)) {
+                continue;
+            }
+
+            $noSize = preg_replace('/\-\d+x\d+/i', '', $file);
+            if (isset($this->attachments[strtolower($file)])) {
+                $text = str_replace($file, $this->attachments[strtolower($file)], $text);
+            } elseif (isset($this->attachments[strtolower($noSize)])) {
+                $text = str_replace($file, $this->attachments[strtolower($noSize)], $text);
+            }
+        }
+    }
+
+    return $text;
+}
+````
+
+---
+
 ````php
 private function handleUrls($text, $filter = '')
 {
@@ -278,6 +310,36 @@ public function execute()
 
 ---
 
+
+
+---
+
+````php
+public function execute()
+{
+    $this->id = $this->getParameter('id', 'int');
+
+    if (
+        $this->id !== null
+        && BackendContentBlocksModel::exists($this->id)
+    ) {
+        $this->record = BackendContentBlocksModel::get($this->id);
+        BackendContentBlocksModel::delete($this->id);
+        $this->redirect(
+            BackendModel::createURLForAction('Index')
+            . '&report=deleted
+        );
+    } else {
+        $this->redirect(
+            BackendModel::createURLForAction('Index')
+            . '&error=non-existing'
+        );
+    }
+}
+````
+
+---
+
 ````php
 public function execute()
 {
@@ -309,6 +371,26 @@ public function execute()
 * Type hinting
 * Encapsulation
 * Enforcing a contract
+
+---
+
+````php
+$message = 'Dat we een paar collega's zoeken:'
+. ' http://sumocoders.be/vacatures';
+
+if (strlen($message) > 140) {
+    throw new InvalidArgumentException('Too long');
+}
+
+$tweet = array(
+    'message' => $message,
+    'id' => '583599688252837888',
+    'author' => 'sumocoders',
+);
+````
+
+---
+
 
 ---
 
@@ -406,6 +488,32 @@ class Order
 
 ---
 
+
+
+---
+
+````php
+class Order
+{
+    public function changeOrderStatus($status, Customer $customer)
+    {
+        $this->status = $status;
+
+        if ($status == self::PAID) {
+            $this->sendEmail(
+                $customer
+                    ->getData()
+                    ->getContactInformation()
+                    ->getEmail(),
+                'Your order has been paid'
+            );
+        }
+    }
+}
+````
+
+---
+
 ````php
 class Order
 {
@@ -450,10 +558,42 @@ $aTemp = array();
 
 ---
 
+
+
+---
+
 # 7. Keep all classes small
 
 * Single responsibility principle
 * Clear objective and methods
+
+---
+
+````php
+class Navigation
+{
+    public static function getBackendURLForBlock();
+    public static function getFirstChildId();
+    public static function getFooterLinks();
+    public static function getKeys();
+    public static function getNavigation();
+    public static function getNavigationHTML();
+    public static function getPageId();
+    public static function getPageInfo();
+    public static function getURL();
+    public static function getURLForBlock();
+    public static function getURLForExtraId();
+    public static function setExcludedPageIds();
+    public static function setSelectedPageIds();
+    public static function getURL();
+    public static function getURLForBlock();
+}
+````
+
+---
+
+
+
 
 ---
 
@@ -530,6 +670,10 @@ class Widget extends \KernelLoader
 
 ---
 
+
+
+---
+
 ````php
 class Widget extends \KernelLoader
 {
@@ -550,6 +694,39 @@ class Widget extends \KernelLoader
 
 * Open closed principle
 * Single responsibility principle
+
+---
+
+````php
+class User
+{
+    public function setEmail($email) {}
+}
+
+class Address
+{
+    public function setStreet($street) {}
+    public function setNumber($number) {}
+    public function setPostalCode($postalcode) {}
+    public function setCity($city) {}
+}
+
+
+$user = new User();
+$user->setEmail('wouter@sumocoders.be');
+
+$address = new Address();
+$address->setStreet('Afrikalaan');
+$address->setNumber(289);
+$address->setPostalCode(9000);
+$address->setCity('Gent');
+
+$user->setAddress($address);
+````
+
+---
+
+
 
 ---
 

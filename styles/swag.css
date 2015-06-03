@@ -106,15 +106,64 @@ blockquote p:last-child {
   -o-background-size: 100% 100%;
   background-size: 100% 100%;
 }
-.dependency-inversion {
-  background: url(../img/dependency_inversion.jpg) no-repeat;
+.questions {
+  background: url(../img/questions.jpg) no-repeat;
   -webkit-background-size: 100% 100%;
   -moz-background-size: 100% 100%;
   -o-background-size: 100% 100%;
   background-size: 100% 100%;
 }
-.questions {
-  background: url(../img/questions.jpg) no-repeat;
+.sorcery {
+  background: url(../img/what-is-this-sorcery.png) no-repeat;
+  -webkit-background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
+  -o-background-size: 100% 100%;
+  background-size: 100% 100%;
+}
+.spaghetti {
+  background: url(../img/spaghetti.jpeg) no-repeat;
+  -webkit-background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
+  -o-background-size: 100% 100%;
+  background-size: 100% 100%;
+}
+.no-idea {
+  background: url(../img/i-have-no-idea.jpg) no-repeat;
+  -webkit-background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
+  -o-background-size: 100% 100%;
+  background-size: 100% 100%;
+}
+.encapsulate {
+  background: url(../img/encapsulate.jpeg) no-repeat;
+  -webkit-background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
+  -o-background-size: 100% 100%;
+  background-size: 100% 100%;
+}
+.wat {
+  background: url(../img/wat.jpg) no-repeat;
+  -webkit-background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
+  -o-background-size: 100% 100%;
+  background-size: 100% 100%;
+}
+.wtf {
+  background: url(../img/wtf.jpg) no-repeat;
+  -webkit-background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
+  -o-background-size: 100% 100%;
+  background-size: 100% 100%;
+}
+.bad-code {
+  background: url(../img/bad-code.jpeg) no-repeat;
+  -webkit-background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
+  -o-background-size: 100% 100%;
+  background-size: 100% 100%;
+}
+.code-quality {
+  background: url(../img/code-quality.jpg) no-repeat;
   -webkit-background-size: 100% 100%;
   -moz-background-size: 100% 100%;
   -o-background-size: 100% 100%;

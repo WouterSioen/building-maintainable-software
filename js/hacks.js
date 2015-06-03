@@ -25,6 +25,15 @@ $(document).on('ready', function(){
   $('.remark-slides-area .remark-slide-content:eq(3)').addClass('symfony image-replace center middle');
   $('.remark-slides-area .remark-slide-content:eq(4)').addClass('fork image-replace');
 
-  $('.remark-slides-area .remark-slide-content:eq(41)').addClass('questions image-replace');
-  $('.remark-slides-area .remark-slide-content:eq(42)').addClass('center thanks');
+  $('.remark-slides-area .remark-slide-content:eq(13)').addClass('spaghetti image-replace');
+  $('.remark-slides-area .remark-slide-content:eq(22)').addClass('no-idea image-replace');
+  $('.remark-slides-area .remark-slide-content:eq(27)').addClass('encapsulate image-replace');
+  $('.remark-slides-area .remark-slide-content:eq(35)').addClass('wat image-replace');
+  $('.remark-slides-area .remark-slide-content:eq(40)').addClass('wtf image-replace');
+  $('.remark-slides-area .remark-slide-content:eq(43)').addClass('sorcery image-replace');
+  $('.remark-slides-area .remark-slide-content:eq(48)').addClass('bad-code image-replace');
+  $('.remark-slides-area .remark-slide-content:eq(52)').addClass('code-quality image-replace');
+
+  $('.remark-slides-area .remark-slide-content').eq(-3).addClass('questions image-replace');
+  $('.remark-slides-area .remark-slide-content').eq(-2).addClass('center thanks');
 });
