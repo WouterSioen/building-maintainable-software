@@ -1,0 +1,129 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:800&subset=latin,latin-ext);
+@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+@import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+body {
+  font-family: 'Droid Serif';
+}
+h1, h2, h3 {
+  font-family: 'Open Sans';
+  font-weight: 800;
+  color: #0A6076;
+}
+a {
+  color: #0088cc;
+  text-decoration: none;
+}
+.remark-container {
+  background-color: #000;
+}
+.remark-slide-scaler {
+  box-shadow: none;
+}
+.remark-code {
+  font-size: 22px;
+}
+.remark-slide-content {
+  font-size: 30px;
+  padding: 1em 3em;
+}
+.remark-slide-content h2 {
+  font-size: 50px;
+}
+.remark-code, .remark-inline-code {
+  font-family: 'Ubuntu Mono';
+}
+.remark-slide-number {
+  display: none;
+}
+.remark-slide-content img {
+  max-width: 100%;
+}
+.img-right-bottom img {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+}
+
+blockquote {
+  background: #f9f9f9;
+  border-left: 10px solid #ccc;
+  margin: 1.5em 0;
+  padding: 1em;
+  quotes: "\201C""\201D""\2018""\2019";
+  position: relative;
+}
+blockquote:before {
+  position: absolute;
+  top: 0.5em;
+  color: #ccc;
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  vertical-align: -0.5em;
+}
+blockquote p {
+  margin: 0;
+  padding-left: 2.1em;
+  padding-bottom: 1em;
+}
+blockquote p:last-child {
+  padding-bottom: 0;
+}
+
+.image-replace * {
+  font-size: 0px !important;
+}
+.sumo-wouter {
+  background: #1481AE;
+}
+.sumo-wouter h2, .sumo-wouter a, .sumo-wouter i {
+  color: #fff !important;
+}
+.sumo-wouter img {
+  position: absolute;
+  top: 25%;
+  right: -10%;
+  width: 70%;
+}
+.sumocoders {
+  background: url(../img/sumocoders.jpg) no-repeat;
+  -webkit-background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
+  -o-background-size: 100% 100%;
+  background-size: 100% 100%;
+}
+.symfony {
+  background: #000
+}
+.symfony img {
+  max-width: 80%;
+}
+.fork {
+  background: url(../img/fork.png) no-repeat;
+  -webkit-background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
+  -o-background-size: 100% 100%;
+  background-size: 100% 100%;
+}
+.dependency-inversion {
+  background: url(../img/dependency_inversion.jpg) no-repeat;
+  -webkit-background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
+  -o-background-size: 100% 100%;
+  background-size: 100% 100%;
+}
+.questions {
+  background: url(../img/questions.jpg) no-repeat;
+  -webkit-background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
+  -o-background-size: 100% 100%;
+  background-size: 100% 100%;
+}
+.thanks img {
+  position: absolute;
+  width: 66%;
+  left: 50%;
+  margin-left: -33%;
+  top: 30%;
+}
