@@ -52,8 +52,8 @@ Maintainable software allows __us__ to __quickly__:
 
 ---
 
-> You need to write code that minimizes the time it would take someone els to understand it.
-> Event if that someone is you.
+> You need to write code that minimizes the time it would take someone else to understand it.
+> Even if that someone is you.
 >
 > -- Dustin Boswell and Trevor Foucher
 
