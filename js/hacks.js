@@ -25,6 +25,6 @@ $(document).on('ready', function(){
   $('.remark-slides-area .remark-slide-content:eq(3)').addClass('symfony image-replace center middle');
   $('.remark-slides-area .remark-slide-content:eq(4)').addClass('fork image-replace');
 
-  //$('.remark-slides-area .remark-slide-content:eq(46)').addClass('questions image-replace');
-  //$('.remark-slides-area .remark-slide-content:eq(47)').addClass('center thanks');
+  $('.remark-slides-area .remark-slide-content:eq(41)').addClass('questions image-replace');
+  $('.remark-slides-area .remark-slide-content:eq(42)').addClass('center thanks');
 });

@@ -29,7 +29,6 @@
 * What's maintainable software
 * Why
 * Object Calisthenics
-* Value Objects
 
 ---
 
@@ -313,6 +312,48 @@ public function execute()
 
 ---
 
+````php
+$message = 'Dat we een paar collega's zoeken:'
+. ' http://sumocoders.be/vacatures';
+
+if (strlen($message) > 140) {
+    throw new InvalidArgumentException('Too long');
+}
+
+$tweet = array(
+    'message' => $message,
+    'id' => '583599688252837888',
+    'author' => 'sumocoders',
+);
+````
+
+---
+
+````php
+class Tweet
+{
+    public function __construct($id, $message, $author)
+    {
+        if (strlen($message) > 140) {
+            throw new InvalidArgumentException('Too long');
+        }
+    }
+}
+````
+
+````php
+$message = 'Dat we een paar collega's zoeken:'
+. ' http://sumocoders.be/vacatures';
+
+$tweet = new Tweet(
+    '583599688252837888',
+    $message,
+    'sumocoders'
+);
+````
+
+---
+
 # 4. First class collection
 
 * Cleaner code
@@ -320,16 +361,92 @@ public function execute()
 
 ---
 
-# 5. One dot per line
+### Doctrine\Common\Collections\Collection
+
+* implements Countable
+* implements IteratorAggregate
+* implements ArrayAccess
+
+---
+
+# 5. One `->` per line
 
 * Easier to debug
 * Readability
 
 ---
 
+# = Law of Demeter
+
+* Each unit should have only limited knowledge about other units: only units "closely" related to the current unit.
+* Each unit should only talk to its friends; don't talk to strangers.
+* Only talk to your immediate friends.
+
+---
+
+````php
+class Order
+{
+    public function changeOrderStatus($status, Customer $customer)
+    {
+        $this->status = $status;
+
+        if ($status == self::PAID) {
+            $this->sendEmail(
+                $customer
+                    ->getData()
+                    ->getContactInformation()
+                    ->getEmail(),
+                'Your order has been paid'
+            );
+        }
+    }
+}
+````
+
+---
+
+````php
+class Order
+{
+    public function changeOrderStatus($status, Customer $customer)
+    {
+        $this->status = $status;
+
+        if ($status == self::PAID) {
+            $customer->sendEmail('Your order has been paid');
+        }
+    }
+}
+````
+
+---
+
 # 6. Don't abbreviate
 
 * Readability
+
+---
+
+````php
+$db = $this->get('database');
+
+$tpl = new Template(false);
+
+$this->frm = new Form('edit');
+
+foreach ($translation as $module => $t) {}
+
+private static $err = array();
+
+$qPos = strpos($language, 'q=');
+
+$tmp = '';
+
+$errStr = '';
+
+$aTemp = array();
+````
 
 ---
 
@@ -340,10 +457,92 @@ public function execute()
 
 ---
 
+````php
+class Navigation
+{
+    public static function getBackendURLForBlock();
+    public static function getFirstChildId();
+    public static function getFooterLinks();
+    public static function getKeys();
+    public static function getNavigation();
+    public static function getNavigationHTML();
+    public static function getPageId();
+    public static function getPageInfo();
+    public static function getURL();
+    public static function getURLForBlock();
+    public static function getURLForExtraId();
+    public static function setExcludedPageIds();
+    public static function setSelectedPageIds();
+    public static function getURL();
+    public static function getURLForBlock();
+}
+````
+
+---
+
+````php
+class Router
+{
+    public static function getBackendURLForBlock();
+    public static function getURL();
+    public static function getURLForBlock();
+    public static function getURLForExtraId();
+}
+
+class Page
+{
+    public static function getFirstChildId();
+    public static function getPageId();
+    public static function getPageInfo();
+}
+
+class Navigation
+{
+    public static function getFooterLinks();
+    public static function getKeys();
+    public static function getNavigation();
+    public static function getNavigationHTML();
+    public static function setExcludedPageIds();
+    public static function setSelectedPageIds();
+}
+````
+
+---
+
 # 8. No classes with more than five instance variables
 
 * Easier to mock in unit tests
 * Shorter dependency list
+
+---
+
+````php
+class Widget extends \KernelLoader
+{
+    private $column = 'left';
+    protected $header;
+    private $position;
+    protected $rights = array();
+    private $templatePath;
+    public $tpl;
+}
+````
+
+---
+
+````php
+class Widget extends \KernelLoader
+{
+    // only the object parsing the widget should know these
+    // private $column = 'left';
+    // private $position;
+    // protected $rights = array();
+
+    protected $header;
+    private $templatePath;
+    public $tpl;
+}
+````
 
 ---
 
@@ -354,13 +553,61 @@ public function execute()
 
 ---
 
+````php
+class User
+{
+    public function setEmail($email) {}
+}
+
+class Address
+{
+    public function setStreet($street) {}
+    public function setNumber($number) {}
+    public function setPostalCode($postalcode) {}
+    public function setCity($city) {}
+}
+
+
+$user = new User();
+$user->setEmail('wouter@sumocoders.be');
+
+$address = new Address();
+$address->setStreet('Afrikalaan');
+$address->setNumber(289);
+$address->setPostalCode(9000);
+$address->setCity('Gent');
+
+$user->setAddress($address);
+````
+
+---
+
+````php
+class User
+{
+    public function __construct($email) {}
+}
+
+class Address
+{
+    private function __construct($street, $number, $zip, $city) {}
+    public static function fromString($string) {}
+}
+
+
+$user = new User('wouter@sumocoders.be');
+$user->relocate(
+    Address::fromString('Afrikalaan 289, 9000 Gent')
+);
+````
+
+---
+
 ## Questions?
 
 ---
 
 ## Thank you!
-
-<https://joind.in/talk/view/14182>
 
 ![Thanks](img/thanks.png)
 
@@ -368,10 +615,8 @@ public function execute()
 
 ## Resources
 
-http://symfony.com/doc/current/index.html
-
-https://speakerdeck.com/ronnylt/dic-to-the-limit-desymfonyday-barcelona-2014
-
-https://lostechies.com/derickbailey/2009/02/11/solid-development-principles-in-motivational-pictures/
-
-http://blog.servergrove.com/2013/10/23/symfony2-components-overview-eventdispatcher/
+<http://software.ac.uk/resources/guides/developing-maintainable-software>
+<http://williamdurand.fr/2013/06/03/object-calisthenics/>
+<http://en.wikipedia.org/wiki/Law_of_Demeter>
+<http://www.slideshare.net/rdohms/your-code-sucks-lets-fix-it-15471808>
+<http://www.slideshare.net/guilhermeblanco/object-calisthenics-applied-to-php>
