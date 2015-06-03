@@ -82,11 +82,226 @@ Maintainable software allows __us__ to __quickly__:
 
 ---
 
+````php
+private function handleUrls($text, $filter = '')
+{
+    preg_match_all(
+        '/<img.*src="(.*)".*\/>/Ui', $text, $matchesImages
+    );
+
+    if (isset($matchesImages[1]) && !empty($matchesImages[1])) {
+        foreach ($matchesImages[1] as $key => $file) {
+            if (!empty($filter) && !stristr($file, $filter)) {
+                continue;
+            }
+
+            $noSize = preg_replace('/\-\d+x\d+/i', '', $file);
+            if (isset($this->attachments[strtolower($file)])) {
+                $text = str_replace($file, $this->attachments[strtolower($file)], $text);
+            } elseif (isset($this->attachments[strtolower($noSize)])) {
+                $text = str_replace($file, $this->attachments[strtolower($noSize)], $text);
+            }
+        }
+    }
+
+    return $text;
+}
+````
+
+---
+
+````php
+private function handleUrls($text, $filter = '')
+{
+    preg_match_all(
+        '/<img.*src="(.*)".*\/>/Ui', $text, $matchesImages
+    );
+
+    if (isset($matchesImages[1]) && !empty($matchesImages[1])) {
+        foreach ($matchesImages[1] as $file) {
+            if (!empty($filter) && !stristr($file, $filter)) {
+                continue;
+            }
+
+            $noSize = preg_replace('/\-\d+x\d+/i', '', $file);
+            if (isset($this->attachments[strtolower($file)])) {
+                $text = str_replace($file, $this->attachments[strtolower($file)], $text);
+            } elseif (isset($this->attachments[strtolower($noSize)])) {
+                $text = str_replace($file, $this->attachments[strtolower($noSize)], $text);
+            }
+        }
+    }
+
+    return $text;
+}
+````
+
+---
+
+````php
+private function handleUrls($text, $filter = '')
+{
+    preg_match_all(
+        '/<img.*src="(.*)".*\/>/Ui', $text, $matchesImages
+    );
+
+    if (!isset($matchesImages[1]) || empty($matchesImages[1])) {
+        return $text;
+    }
+
+    foreach ($matchesImages[1] as $file) {
+        if (!empty($filter) && !stristr($file, $filter)) {
+            continue;
+        }
+
+        $noSize = preg_replace('/\-\d+x\d+/i', '', $file);
+        if (isset($this->attachments[strtolower($file)])) {
+            $text = str_replace($file, $this->attachments[strtolower($file)], $text);
+        } elseif (isset($this->attachments[strtolower($noSize)])) {
+            $text = str_replace($file, $this->attachments[strtolower($noSize)], $text);
+        }
+    }
+
+    return $text;
+}
+````
+
+---
+
+````php
+private function handleUrls($text, $filter = '')
+{
+    preg_match_all(
+        '/<img.*src="(.*)".*\/>/Ui', $text, $matchesImages
+    );
+
+    if (!isset($matchesImages[1]) || empty($matchesImages[1]) || empty($filter)) {
+        return $text;
+    }
+
+    foreach ($matchesImages[1] as $file) {
+        if (!stristr($file, $filter)) {
+            continue;
+        }
+
+        $noSize = preg_replace('/\-\d+x\d+/i', '', $file);
+        if (isset($this->attachments[strtolower($file)])) {
+            $text = str_replace($file, $this->attachments[strtolower($file)], $text);
+        } elseif (isset($this->attachments[strtolower($noSize)])) {
+            $text = str_replace($file, $this->attachments[strtolower($noSize)], $text);
+        }
+    }
+
+    return $text;
+}
+````
+
+---
+
+````php
+private function handleUrls($text, $filter = '')
+{
+    preg_match_all(
+        '/<img.*src="(.*)".*\/>/Ui', $text, $matchesImages
+    );
+
+    if (!isset($matchesImages[1]) || empty($matchesImages[1]) || empty($filter)) {
+        return $text;
+    }
+
+    foreach ($matchesImages[1] as $file) {
+        $text = $this->replaceImage($text, $file, $filter);
+    }
+
+    return $text;
+}
+````
+
+---
+
+````php
+private function replaceImage($text, $file, $filter = '')
+{
+    if (!stristr($file, $filter)) {
+        return $text
+    }
+
+    $noSize = preg_replace('/\-\d+x\d+/i', '', $file);
+    if (isset($this->attachments[strtolower($file)])) {
+        $text = str_replace(
+            $file,
+            $this->attachments[strtolower($file)],
+            $text
+        );
+    } elseif (isset($this->attachments[strtolower($noSize)])) {
+        $text = str_replace(
+            $file,
+            $this->attachments[strtolower($noSize)],
+            $text
+        );
+    }
+}
+````
+
+---
+
 # 2. Don't use the else keyword
 
 * Readability
 * Less cyclomatic complexity
 * Less duplication
+
+---
+
+````php
+public function execute()
+{
+    $this->id = $this->getParameter('id', 'int');
+
+    if (
+        $this->id !== null
+        && BackendContentBlocksModel::exists($this->id)
+    ) {
+        $this->record = BackendContentBlocksModel::get($this->id);
+        BackendContentBlocksModel::delete($this->id);
+        $this->redirect(
+            BackendModel::createURLForAction('Index')
+            . '&report=deleted
+        );
+    } else {
+        $this->redirect(
+            BackendModel::createURLForAction('Index')
+            . '&error=non-existing'
+        );
+    }
+}
+````
+
+---
+
+````php
+public function execute()
+{
+    $this->id = $this->getParameter('id', 'int');
+
+    if (
+        $this->id === null
+        || !BackendContentBlocksModel::exists($this->id)
+    ) {
+        return $this->redirect(
+            BackendModel::createURLForAction('Index')
+            . '&error=non-existing'
+        );
+    }
+
+    $this->record = BackendContentBlocksModel::get($this->id);
+    BackendContentBlocksModel::delete($this->id);
+    $this->redirect(
+        BackendModel::createURLForAction('Index')
+        . '&report=deleted
+    );
+}
+````
 
 ---
 
