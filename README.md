@@ -797,3 +797,4 @@ $user->relocate(
 <http://en.wikipedia.org/wiki/Law_of_Demeter>
 <http://www.slideshare.net/rdohms/your-code-sucks-lets-fix-it-15471808>
 <http://www.slideshare.net/guilhermeblanco/object-calisthenics-applied-to-php>
+<https://github.com/TheLadders/object-calisthenics>
