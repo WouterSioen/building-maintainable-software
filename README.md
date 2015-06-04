@@ -48,7 +48,7 @@ Maintainable software allows __us__ to __quickly__:
 
 * Strong timeframes
 * Developers leaving teams
-* You read more then you code
+* You read more than you code
 
 ---
 
@@ -375,7 +375,7 @@ public function execute()
 ---
 
 ````php
-$message = 'Dat we een paar collega's zoeken:'
+$message = "Dat we een paar collega's zoeken:"
 . ' http://sumocoders.be/vacatures';
 
 if (strlen($message) > 140) {
@@ -395,7 +395,7 @@ $tweet = array(
 ---
 
 ````php
-$message = 'Dat we een paar collega's zoeken:'
+$message = "Dat we een paar collega's zoeken:"
 . ' http://sumocoders.be/vacatures';
 
 if (strlen($message) > 140) {
@@ -424,7 +424,7 @@ class Tweet
 ````
 
 ````php
-$message = 'Dat we een paar collega's zoeken:'
+$message = "Dat we een paar collega's zoeken:"
 . ' http://sumocoders.be/vacatures';
 
 $tweet = new Tweet(
@@ -701,6 +701,7 @@ class Widget extends \KernelLoader
 class User
 {
     public function setEmail($email) {}
+    public function setAddress(Address $adress) {}
 }
 
 class Address
@@ -734,6 +735,7 @@ $user->setAddress($address);
 class User
 {
     public function setEmail($email) {}
+    public function setAddress(Address $adress) {}
 }
 
 class Address
@@ -763,6 +765,7 @@ $user->setAddress($address);
 class User
 {
     public function __construct($email) {}
+    public function relocateTo(Address $adress) {}
 }
 
 class Address
@@ -773,7 +776,7 @@ class Address
 
 
 $user = new User('wouter@sumocoders.be');
-$user->relocate(
+$user->relocateTo(
     Address::fromString('Afrikalaan 289, 9000 Gent')
 );
 ````
