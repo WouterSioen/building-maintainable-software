@@ -120,13 +120,6 @@ blockquote p:last-child {
   -o-background-size: 100% 100%;
   background-size: 100% 100%;
 }
-.spaghetti {
-  background: url(../img/spaghetti.jpeg) no-repeat;
-  -webkit-background-size: 100% 100%;
-  -moz-background-size: 100% 100%;
-  -o-background-size: 100% 100%;
-  background-size: 100% 100%;
-}
 .no-idea {
   background: url(../img/i-have-no-idea.jpg) no-repeat;
   -webkit-background-size: 100% 100%;
