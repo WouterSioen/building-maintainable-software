@@ -377,11 +377,55 @@ public function changePassword(
 
 ---
 
+## Techniques
+
+* use Doctrine Collections
+* Write collection like repository classes
+
+---
+
 ### Doctrine\Common\Collections\Collection
 
 * implements Countable
 * implements IteratorAggregate
 * implements ArrayAccess
+
+---
+
+````php
+interface UserRepository
+{
+    public function add(User $user);
+    public function remove(User $user);
+
+    /** @return User */
+    public function find(UserId $id);
+}
+````
+
+---
+
+````php
+class DoctrineUserRepository extends EntityRepository
+{
+    public function add(User $user)
+    {
+        $this->getEntityManager()->persist($user);
+        $this->getEntityManager()->flush();
+    }
+
+    public function remove(User $user)
+    {
+        $this->getEntityManager()->remove($user);
+        $this->getEntityManager()->flush();
+    }
+
+    public function find(UserId $id)
+    {
+        return $this->findOneById($id->getId());
+    }
+}
+````
 
 ---
 
