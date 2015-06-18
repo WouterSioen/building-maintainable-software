@@ -550,7 +550,24 @@ $aTemp = array();
 
 ---
 
+## Bonus: don't use meaningless names
 
+````php
+// FOS\RestBundle\EventListener\ParamFetcherListener
+private function getAttributeName(array $controller)
+{
+    list($object, $name) = $controller;
+    $method = new \ReflectionMethod($object, $name);
+    foreach ($method->getParameters() as $param) {
+        if ($this->isParamFetcherType($param)) {
+            return $param->getName();
+        }
+    }
+
+    // If there is no typehint, inject the ParamFetcher using a default name.
+    return 'paramFetcher';
+}
+````
 
 ---
 
