@@ -63,7 +63,7 @@ Maintainable software allows __us__ to __quickly__:
 
 * Programming exercises
 * 9 Rules
-* Originally written for Java
+* Originally written for Java (by Thoughtworks)
 
 ---
 
