@@ -575,84 +575,30 @@ private function getAttributeName(array $controller)
 
 * Single responsibility principle
 * Clear objective and methods
+* Rule = 50 lines. up to 150 is ok.
 
 ---
 
 ````php
-class Navigation
+// 251 lines
+class I18nRouter extends Router
 {
-    public static function getBackendURLForBlock();
-    public static function getFirstChildId();
-    public static function getFooterLinks();
-    public static function getKeys();
-    public static function getNavigation();
-    public static function getNavigationHTML();
-    public static function getPageId();
-    public static function getPageInfo();
-    public static function getURL();
-    public static function getURLForBlock();
-    public static function getURLForExtraId();
-    public static function setExcludedPageIds();
-    public static function setSelectedPageIds();
-    public static function getURL();
-    public static function getURLForBlock();
-}
-````
+    public function __construct();
+    public function setLocaleResolver(LocaleResolverInterface $resolver);
+    public function setRedirectToHost($bool);
+    public function setHostMap(array $hostMap);
+    public function setI18nLoaderId($id);
+    public function setDefaultLocale($locale);
+    public function match($url);
+    public function getRouteCollection();
+    public function getOriginalRouteCollection();
+    public function matchRequest(Request $request);
 
----
+    // 45 lines, 216 code paths
+    public function generate($name, $parameters = array(), $absolute = false);
 
-
-
-
----
-
-````php
-class Navigation
-{
-    public static function getBackendURLForBlock();
-    public static function getFirstChildId();
-    public static function getFooterLinks();
-    public static function getKeys();
-    public static function getNavigation();
-    public static function getNavigationHTML();
-    public static function getPageId();
-    public static function getPageInfo();
-    public static function getURL();
-    public static function getURLForBlock();
-    public static function getURLForExtraId();
-    public static function setExcludedPageIds();
-    public static function setSelectedPageIds();
-    public static function getURL();
-    public static function getURLForBlock();
-}
-````
-
----
-
-````php
-class Router
-{
-    public static function getBackendURLForBlock();
-    public static function getURL();
-    public static function getURLForBlock();
-    public static function getURLForExtraId();
-}
-
-class Page
-{
-    public static function getFirstChildId();
-    public static function getPageId();
-    public static function getPageInfo();
-}
-
-class Navigation
-{
-    public static function getFooterLinks();
-    public static function getKeys();
-    public static function getNavigation();
-    public static function getNavigationHTML();
-    public static function setExcludedPageIds();
-    public static function setSelectedPageIds();
+    // 93 lines, 2680 code paths
+    private function matchI18n(array $params, $url);
 }
 ````
 
