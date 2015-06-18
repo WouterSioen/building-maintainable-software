@@ -273,67 +273,99 @@ public function setCursor($pos)
 * Type hinting
 * Encapsulation
 * Enforcing a contract
+* More clear method signatures
 
 ---
 
 ````php
-$message = "Dat we een paar collega's zoeken:"
-. ' http://sumocoders.be/vacatures';
-
-if (strlen($message) > 140) {
-    throw new InvalidArgumentException('Too long');
-}
-
-$tweet = array(
-    'message' => $message,
-    'id' => '583599688252837888',
-    'author' => 'sumocoders',
-);
-````
-
----
-
-
----
-
-````php
-$message = "Dat we een paar collega's zoeken:"
-. ' http://sumocoders.be/vacatures';
-
-if (strlen($message) > 140) {
-    throw new InvalidArgumentException('Too long');
-}
-
-$tweet = array(
-    'message' => $message,
-    'id' => '583599688252837888',
-    'author' => 'sumocoders',
-);
-````
-
----
-
-````php
-class Tweet
+// FOS\UserBundle\Util\UserManipulator
+/**
+ * Changes the password for the given user.
+ *
+ * @param string $username
+ * @param string $password
+ */
+public function changePassword($username, $password)
 {
-    public function __construct($id, $message, $author)
+    $user = $this->findUserByUsernameOrThrowException($username);
+    $user->setPlainPassword($password);
+    $this->userManager->updateUser($user);
+}
+````
+
+---
+
+## Techniques
+
+* Extract class
+* Value objects
+
+---
+
+````php
+// FOS\UserBundle\Util\UserManipulator
+/**
+ * Changes the password for the given user.
+ *
+ * @param string $username
+ * @param string $password
+ */
+public function changePassword($username, $password)
+{
+    $user = $this->findUserByUsernameOrThrowException($username);
+    $user->setPlainPassword($password);
+    $this->userManager->updateUser($user);
+}
+````
+
+---
+
+````php
+final class Username
+{
+    private $username;
+
+    public function __construct($username)
     {
-        if (strlen($message) > 140) {
-            throw new InvalidArgumentException('Too long');
-        }
+        $this->validateUsername($username);
+        $this->username = $username;
     }
 }
 ````
 
 ````php
-$message = "Dat we een paar collega's zoeken:"
-. ' http://sumocoders.be/vacatures';
+final class PlainPassword
+{
+    private $password;
 
-$tweet = new Tweet(
-    '583599688252837888',
-    $message,
-    'sumocoders'
-);
+    public function __construct($password)
+    {
+        $this->validatePassword($pasword);
+        $this->password = $password;
+    }
+
+    public function hash();
+}
+````
+
+---
+
+````php
+// FOS\UserBundle\Util\UserManipulator
+/**
+ * Changes the password for the given user.
+ *
+ * @param Username $username
+ * @param PlainPassword $password
+ */
+public function changePassword(
+    Username $username,
+    PlainPassword $password
+) {
+    $user = $this->findUserByUsernameOrThrowException($username);
+    $user->setPlainPassword($password);
+    $this->userManager->updateUser($user);
+}
 ````
 
 ---
