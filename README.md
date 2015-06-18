@@ -434,24 +434,30 @@ class DoctrineUserRepository extends EntityRepository
 * Easier to debug
 * Readability
 
+Does not apply to fluent interfaces or objects using the method chaining pattern. (f.e. QueryBuilder)
+
 ---
 
-# = Law of Demeter
+## = Law of Demeter
 
 * Each unit should have only limited knowledge about other units: only units "closely" related to the current unit.
 * Each unit should only talk to its friends; don't talk to strangers.
-* Only talk to your immediate friends.
+* "Only talk to your immediate friends."
+
+> Never trust a functions return value.
 
 ---
 
 ````php
 class Order
 {
-    public function changeOrderStatus($status, Customer $customer)
-    {
+    public function changeOrderStatus(
+        OrderStatus $status,
+        Customer $customer
+    ) {
         $this->status = $status;
 
-        if ($status == self::PAID) {
+        if ($status === OrderStatus::PAID) {
             $this->sendEmail(
                 $customer
                     ->getData()
@@ -466,18 +472,24 @@ class Order
 
 ---
 
+## Techniques
 
+* Encapsulate funcionality in other places
+* Use atomic actions
+* Move your code to the right place
 
 ---
 
 ````php
 class Order
 {
-    public function changeOrderStatus($status, Customer $customer)
-    {
+    public function changeOrderStatus(
+        OrderStatus $status,
+        Customer $customer
+    ) {
         $this->status = $status;
 
-        if ($status == self::PAID) {
+        if ($status === OrderStatus::PAID) {
             $this->sendEmail(
                 $customer
                     ->getData()
@@ -495,11 +507,13 @@ class Order
 ````php
 class Order
 {
-    public function changeOrderStatus($status, Customer $customer)
-    {
+    public function changeOrderStatus(
+        OrderStatus $status,
+        Customer $customer
+    ) {
         $this->status = $status;
 
-        if ($status == self::PAID) {
+        if ($status === OrderStatus::PAID) {
             $customer->sendEmail('Your order has been paid');
         }
     }
