@@ -604,6 +604,34 @@ class I18nRouter extends Router
 
 ---
 
+````php
+// &plusmn; 120 lines
+class I18nRouter extends Router
+{
+    public function __construct();
+    public function setLocaleResolver(LocaleResolverInterface $resolver);
+    public function setRedirectToHost($bool);
+    public function setHostMap(array $hostMap);
+    public function setI18nLoaderId($id);
+    public function setDefaultLocale($locale);
+    public function match($url);
+    public function getRouteCollection();
+    public function getOriginalRouteCollection();
+    public function matchRequest(Request $request);
+
+    public function generate($name, $parameters = array(), $absolute = false);
+    private function matchI18n(array $params, $url);
+}
+
+// &plusmn; 50 lines
+class I18UrlGenerator {}
+
+// &plusmn; 100 lines
+class I18RouteMatcher {}
+````
+
+---
+
 # 8. No classes with more than five instance variables
 
 * Easier to mock in unit tests
