@@ -550,6 +550,13 @@ $aTemp = array();
 
 ---
 
+## Techniques
+
+* Rename property
+* Rename local variable
+
+---
+
 ## Bonus: don't use meaningless names
 
 ````php
@@ -632,44 +639,40 @@ class I18RouteMatcher {}
 
 ---
 
-# 8. No classes with more than five instance variables
+# 8. Max 5 instance variables
 
+* Low cohesion
+* Better encapsulation
 * Easier to mock in unit tests
 * Shorter dependency list
 
 ---
 
 ````php
-class Widget extends \KernelLoader
+// FOS\RestBundle\View\ViewHandler
+class ViewHandler extends ContainerAware implements ConfigurableViewHandlerInterface
 {
-    private $column = 'left';
-    protected $header;
-    private $position;
-    protected $rights = array();
-    private $templatePath;
-    public $tpl;
+    protected $customHandlers = array();
+    protected $formats;
+    protected $failedValidationCode;
+    protected $emptyContentCode;
+    protected $serializeNull;
+    protected $forceRedirects;
+    protected $defaultEngine;
+    protected $exclusionStrategyGroups = array();
+    protected $exclusionStrategyVersion;
+    protected $serializeNullStrategy;
 }
 ````
 
 ---
 
+## Techniques
 
+* Extract class
+* Composition
 
----
-
-````php
-class Widget extends \KernelLoader
-{
-    // only the object parsing the widget should know these
-    // private $column = 'left';
-    // private $position;
-    // protected $rights = array();
-
-    protected $header;
-    private $templatePath;
-    public $tpl;
-}
-````
+Think about the responsibilities
 
 ---
 
