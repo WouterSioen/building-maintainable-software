@@ -680,6 +680,7 @@ Think about the responsibilities
 
 * Open closed principle
 * Single responsibility principle
+* Intention revealing interfaces
 
 ---
 
@@ -710,10 +711,6 @@ $address->setCity('Gent');
 
 $user->setAddress($address);
 ````
-
----
-
-
 
 ---
 
