@@ -784,3 +784,4 @@ $user->relocateTo(
 <http://www.slideshare.net/rdohms/your-code-sucks-lets-fix-it-15471808>
 <http://www.slideshare.net/guilhermeblanco/object-calisthenics-applied-to-php>
 <https://github.com/TheLadders/object-calisthenics>
+<http://c2.com/cgi/wiki?AccessorsAreEvil>
