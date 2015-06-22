@@ -322,12 +322,27 @@ public function changePassword($username, $password)
 }
 ````
 
+???
+
+If you don't see the body of the method, do you know if the password has to
+be hashed before calling the method?
+
 ---
 
 ## Techniques
 
 * Extract class
 * Value objects
+
+---
+
+## Value objects
+
+* From the DDD World
+* Immutable objects
+* No identity
+* Equal content == Equal object
+* f.e. Money, DateRange, GeoLocation
 
 ---
 
