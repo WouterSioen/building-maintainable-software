@@ -400,6 +400,9 @@ hashed. This method can return f.e. a new HashedPassword object. You'll only nee
 instanceof checks to know if your password is hashed or not, and calling one method
 will do the conversion.
 
+Also note the final keyword. This is needed to avoid other objects extending
+your value objects and being able to mess with the encapsulated data.
+
 ---
 
 ````php
