@@ -774,11 +774,21 @@ Think about the responsibilities
 * Single responsibility principle
 * Intention revealing interfaces
 
+> Tell, don't ask.
+
+???
+
+Note that getters are ok to get the state of the object, as long as you don't
+use it to decide stuff about that object outside of it.
+
+Decisions based on the state of the object should be done inside of it.
+
 ---
 
 ````php
 class User
 {
+    public function setId($id) {}
     public function setEmail($email) {}
     public function setAddress(Address $adress) {}
 }
@@ -791,8 +801,8 @@ class Address
     public function setCity($city) {}
 }
 
-
 $user = new User();
+$user->setId(1);
 $user->setEmail('wouter@sumocoders.be');
 
 $address = new Address();
@@ -809,37 +819,7 @@ $user->setAddress($address);
 ````php
 class User
 {
-    public function setEmail($email) {}
-    public function setAddress(Address $adress) {}
-}
-
-class Address
-{
-    public function setStreet($street) {}
-    public function setNumber($number) {}
-    public function setPostalCode($postalcode) {}
-    public function setCity($city) {}
-}
-
-
-$user = new User();
-$user->setEmail('wouter@sumocoders.be');
-
-$address = new Address();
-$address->setStreet('Afrikalaan');
-$address->setNumber(289);
-$address->setPostalCode(9000);
-$address->setCity('Gent');
-
-$user->setAddress($address);
-````
-
----
-
-````php
-class User
-{
-    public function __construct($email) {}
+    public function __construct($id, $email) {}
     public function relocateTo(Address $adress) {}
 }
 
@@ -850,7 +830,7 @@ class Address
 }
 
 
-$user = new User('wouter@sumocoders.be');
+$user = new User(1, 'wouter@sumocoders.be');
 $user->relocateTo(
     Address::fromString('Afrikalaan 289, 9000 Gent')
 );
