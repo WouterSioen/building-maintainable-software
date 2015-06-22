@@ -428,7 +428,7 @@ public function changePassword(
 # 4. First class collection
 
 * Cleaner code
-* Easier to merge collections
+* Gives behaviour of collections a place
 
 ---
 
@@ -436,14 +436,6 @@ public function changePassword(
 
 * use Doctrine Collections
 * Write collection like repository classes
-
----
-
-### Doctrine\Common\Collections\Collection
-
-* implements Countable
-* implements IteratorAggregate
-* implements ArrayAccess
 
 ---
 
