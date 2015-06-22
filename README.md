@@ -629,12 +629,46 @@ private function getAttributeName(array $controller)
 
 * Single responsibility principle
 * Clear objective and methods
+* Readibility
+* Comprehensibility
 * Rule = 50 lines. up to 150 is ok.
 
 ---
 
 ````php
-// 251 lines
+//  JMS\I18nRoutingBundle\Router\I18Router: 251 lines
+class I18nRouter extends Router
+{
+    public function __construct();
+    public function setLocaleResolver(LocaleResolverInterface $resolver);
+    public function setRedirectToHost($bool);
+    public function setHostMap(array $hostMap);
+    public function setI18nLoaderId($id);
+    public function setDefaultLocale($locale);
+    public function match($url);
+    public function getRouteCollection();
+    public function getOriginalRouteCollection();
+    public function matchRequest(Request $request);
+
+    // 45 lines, 216 code paths
+    public function generate($name, $parameters = array(), $absolute = false);
+
+    // 93 lines, 2680 code paths
+    private function matchI18n(array $params, $url);
+}
+````
+
+---
+
+## Techniques
+
+* Extract class
+* Use value objects
+
+---
+
+````php
+//  JMS\I18nRoutingBundle\Router\I18Router: 251 lines
 class I18nRouter extends Router
 {
     public function __construct();
@@ -692,6 +726,17 @@ class I18RouteMatcher {}
 * Better encapsulation
 * Easier to mock in unit tests
 * Shorter dependency list
+* Comprehensibility
+
+???
+
+In pure object calisthenics, the rule is only two instance variables.
+This gives you two kinds of classes:
+
+* Classes that maintain the state of one single instance variable
+* Classes that coördinate two variables
+
+It really forces you to decouple
 
 ---
 
