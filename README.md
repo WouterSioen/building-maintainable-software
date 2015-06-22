@@ -392,6 +392,14 @@ final class PlainPassword
 }
 ````
 
+???
+
+We clearly show that our password is not encoded yet. We can also encapsulate
+the hash method in this object, since only PlainPassword objects will need to be
+hashed. This method can return f.e. a new HashedPassword object. You'll only need
+instanceof checks to know if your password is hashed or not, and calling one method
+will do the conversion.
+
 ---
 
 ````php
