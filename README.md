@@ -571,6 +571,7 @@ class Order
 # 6. Don't abbreviate
 
 * Readability
+* Comprehensibility
 
 ---
 
