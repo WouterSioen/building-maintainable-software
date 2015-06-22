@@ -78,6 +78,7 @@ Maintainable software allows __us__ to __quickly__:
 
 * Guidelines, not rules
 * I don't always follow them myself
+* Some of them are controversial
 
 ???
 
@@ -85,6 +86,8 @@ First made as an exercise. In the exercise, you would apply all rules strictly o
 a rather small project (±1000 lines of java).
 
 The rules should change your approach in designing software.
+
+It's good to note that it's really easy to get big discussions over these rules.
 
 ---
 
