@@ -521,9 +521,8 @@ class Order
 
 ## Techniques
 
-* Encapsulate funcionality in other places
-* Use atomic actions
 * Move your code to the right place
+* Think about the responsibilities
 
 ---
 
