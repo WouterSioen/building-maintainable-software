@@ -65,6 +65,13 @@ Maintainable software allows __us__ to __quickly__:
 * 9 Rules
 * Originally written for Java (by Thoughtworks)
 
+???
+
+* maintainability
+* readability
+* testability
+* comprehensibility
+
 ---
 
 # Disclamer
@@ -72,12 +79,20 @@ Maintainable software allows __us__ to __quickly__:
 * Guidelines, not rules
 * I don't always follow them myself
 
+???
+
+First made as an exercise. In the exercise, you would apply all rules strictly on
+a rather small project (±1000 lines of java).
+
+The rules should change your approach in designing software.
+
 ---
 
 # 1. Only one indentation level per method
 
 * Single responsibility principle
 * reusable code
+* readable code
 
 ---
 
@@ -103,6 +118,11 @@ public function __construct(array $guessers)
     }
 }
 ````
+
+???
+
+To understand this code, you need to get your brain around it. It takes some
+reading and thinking to fully understand all use cases in this method.
 
 ---
 
@@ -166,6 +186,12 @@ private function addGuesser($guesser)
     }
 }
 ````
+
+???
+
+Let's apply an extract method refactoring. The constructor is a lot more readable
+and can be understood in one glimpse. If you want to know how "adding a guesser"
+works, you can still go check in the private method (that could be refactored further).
 
 ---
 
