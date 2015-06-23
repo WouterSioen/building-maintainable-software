@@ -481,6 +481,7 @@ class DoctrineUserRepository extends EntityRepository implements
 
 * Easier to debug
 * Readability
+* Testability
 
 Does not apply to fluent interfaces or objects using the method chaining pattern. (f.e. QueryBuilder)
 
