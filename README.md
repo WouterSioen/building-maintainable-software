@@ -505,7 +505,7 @@ class Order
     ) {
         $this->status = $status;
 
-        if ($status === OrderStatus::PAID) {
+        if ((string) $status === OrderStatus::PAID) {
             $this->sendEmail(
                 $customer
                     ->getData()
@@ -536,7 +536,7 @@ class Order
     ) {
         $this->status = $status;
 
-        if ($status === OrderStatus::PAID) {
+        if ((string) $status === OrderStatus::PAID) {
             $this->sendEmail(
                 $customer
                     ->getData()
@@ -560,7 +560,7 @@ class Order
     ) {
         $this->status = $status;
 
-        if ($status === OrderStatus::PAID) {
+        if ((string) $status === OrderStatus::PAID) {
             $customer->sendEmail('Your order has been paid');
         }
     }
