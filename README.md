@@ -453,7 +453,8 @@ interface UserRepository
 ---
 
 ````php
-class DoctrineUserRepository extends EntityRepository implements UserRepository
+class DoctrineUserRepository extends EntityRepository implements
+    UserRepository
 {
     public function add(User $user)
     {
