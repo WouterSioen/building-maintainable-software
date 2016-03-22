@@ -780,7 +780,7 @@ Think about the responsibilities
 
 ???
 
-Note that getters are ok to get the state of the object, as long as you don't
+Note that getters can be ok to get the state of the object, as long as you don't
 use it to decide stuff about that object outside of it.
 
 Decisions based on the state of the object should be done inside of it.
