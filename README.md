@@ -81,12 +81,127 @@ Maintainable software allows __us__ to __quickly__:
 * Ask an extra opinion if needed
 * Don't only give negative feedback
 * Automate automatable stuff
+* Always review your own code
 
 ???
 
 Doing code reviews is really important because you know too much about your own code.
 You should also (if possible) try to assign code reviews to different people.
 This will make it easier for you to get different insights in your code.
+
+---
+
+# Refactoring
+
+* Should be an integrated part of your workflow
+* Automated tests can help you validate refactorings
+* Look out for duplication (phpcpd)
+* Static analysis can help you here
+
+---
+
+# Setup
+
+* Make your project easy to set up (locally)
+  * use vagrant/docker
+  * add a setup guide if needed (README)
+  * make code (without interface) "runnable" through tests
+* Make your project easy to deploy
+  * automate deployment
+  * keep your master/default branch stable
+
+---
+
+# SOLID
+
+Keep the SOLID rules in mind.
+
+<https://leanpub.com/principles-of-package-design>
+
+---
+
+<video controls>
+    <source src="video/step1-SRP.mov"/>
+</video>
+
+???
+
+Our library has one entry point: the Converter class. This class has two
+responsibilities: converting from html to json and the other way around.
+
+We'll split the two classes to make sure each class does one thing and one
+thing only.
+
+---
+
+<video>
+    <source src="video/step2-make-dependencies-explicit-take-2.mov"/>
+</video>
+
+???
+
+Note that I've removed the "Converter" suffix from the two main classes. The
+small "type" classes that convert one small item are also called converters.
+The names "HtmlToJson" and "JsonToHtml" are explicit enough.
+
+This refactoring will remove the "ToHtmlContext" and "ToJsonContext". These
+classes were only used from the main entry points. They are instantiated
+in there so they are coupled. All the small type converters are thus also
+coupled. This refactoring makes this more explicit making it easier to
+move to more decoupled code later.
+
+---
+
+<video>
+    <source src="video/step3-split-interface.mov"/>
+</video>
+
+???
+
+We see that our classes always only use one method of our interface. We'll
+split the interface into a ToJson and ToHtml version to follow the
+Interface Segregation Principle.
+
+---
+
+<video>
+    <source src="video/step4-open-closed-part1.mov"/>
+</video>
+
+???
+
+I've already done some refactoring before we'll go to this step. I've
+split the implementation of all converters to a toJson and toHtml version.
+
+I've also gave them a "match" method, so the main entry point classes don't
+have to decide which class to use anymore. This gives it one less responsibility.
+
+In this refactoring, we're going to introduce an "addConverter" method
+which makes our class open for extension. This way, other persons can add
+extra custom converters.
+
+Note that we're not following the open closed principle yet. It's open for
+extension, but not closed to modification, since we'll need to access the class
+to change the order of converters or to remove a default one.
+
+---
+
+<video>
+    <source src="video/step4-open-closed-part2.mov"/>
+</video>
+
+???
+
+In this refactoring, we'll fully remove the dependencies on implementations.
+We're now following the dependency inversion principle: we're depending on
+abstractions, not on implementation.
+
+Our class is also closed for modification. We don't need to enter the class to
+get the behaviour we want.
+
+Note that I've made all classes final later, to avoid extending them. If
+classes can be extended, they can still be modified. I want my class to be
+closed to modifications, since it already has an extension point.
 
 ---
 
