@@ -28,6 +28,8 @@
 
 * What's maintainable software
 * Why
+* Easy efforts
+* Class design
 * Object Calisthenics
 
 ---
@@ -56,6 +58,35 @@ Maintainable software allows __us__ to __quickly__:
 > Even if that someone is you.
 >
 > -- Dustin Boswell and Trevor Foucher
+
+---
+
+# Easy efforts
+
+### choose a code style
+
+* PSR-2 is most used
+* Can be enforced using php code sniffer
+* php-cs-fixer can autofix (some) issues
+* use pre-commit hooks and ci to enforce it
+
+---
+
+# Easy efforts
+
+### Do code reviews
+
+* Keep pull requests small for good reviews
+* Review more than code (commit messages, documentation,...)
+* Ask an extra opinion if needed
+* Don't only give negative feedback
+* Automate automatable stuff
+
+???
+
+Doing code reviews is really important because you know too much about your own code.
+You should also (if possible) try to assign code reviews to different people.
+This will make it easier for you to get different insights in your code.
 
 ---
 
