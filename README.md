@@ -120,9 +120,7 @@ Keep the SOLID rules in mind.
 
 ---
 
-<video preload controls>
-    <source src="video/step1-SRP.mp4"/>
-</video>
+<iframe src="https://www.youtube.com/embed/Qqj9oRfP6gY?vq=hd720&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>
 
 ???
 
@@ -134,9 +132,7 @@ thing only.
 
 ---
 
-<video preload controls>
-    <source src="video/step2-make-dependencies-explicit-take-2.mp4"/>
-</video>
+<iframe src="https://www.youtube.com/embed/lXFIoUzRxMI?vq=hd720&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>
 
 ???
 
@@ -152,9 +148,7 @@ move to more decoupled code later.
 
 ---
 
-<video preload controls>
-    <source src="video/step3-split-interface.mp4"/>
-</video>
+<iframe src="https://www.youtube.com/embed/KccB3jIRE88?vq=hd720&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>
 
 ???
 
@@ -164,9 +158,7 @@ Interface Segregation Principle.
 
 ---
 
-<video preload controls>
-    <source src="video/step4-open-closed-part1.mp4"/>
-</video>
+<iframe src="https://www.youtube.com/embed/quLBHjEHJzg?vq=hd720&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>
 
 ???
 
@@ -186,9 +178,7 @@ to change the order of converters or to remove a default one.
 
 ---
 
-<video preload controls>
-    <source src="video/step4-open-closed-part2.mp4"/>
-</video>
+<iframe src="https://www.youtube.com/embed/3w7cNMn7duc?vq=hd720&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>
 
 ???
 
@@ -253,9 +243,7 @@ It's good to note that it's really easy to get big discussions over these rules.
 
 ---
 
-<video preload controls>
-    <source src="video/1-one-level-of-indentation.mp4"/>
-</video>
+<iframe src="https://www.youtube.com/embed/4e_uJRVxmTE?vq=hd720&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>
 
 ---
 
@@ -283,9 +271,7 @@ PSR2 shows this hidden extra depth
 
 ---
 
-<video preload controls>
-    <source src="video/1-one-level-of-indentation.mp4"/>
-</video>
+<iframe src="https://www.youtube.com/embed/A_MLFW3YyP4?vq=hd720&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>
 
 ---
 

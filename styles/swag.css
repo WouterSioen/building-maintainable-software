@@ -392,7 +392,7 @@ blockquote p:last-child {
   margin-left: -33%;
   top: 30%;
 }
-video {
+video, iframe {
     position: absolute;
     top: 0;
     left: 0;
