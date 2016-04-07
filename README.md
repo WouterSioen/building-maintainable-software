@@ -245,36 +245,6 @@ It's good to note that it's really easy to get big discussions over these rules.
 
 ---
 
-````php
-// Sonata\AdminBundle\Guesser\TypeGuesserChain
-public function __construct(array $guessers)
-{
-    foreach ($guessers as $guesser) {
-        if (!$guesser instanceof TypeGuesserInterface) {
-            throw new UnexpectedTypeException(
-                $guesser,
-                'Sonata\AdminBundle\Guesser\TypeGuesserInterface'
-            );
-        }
-        if ($guesser instanceof self) {
-            $this->guessers = array_merge(
-                $this->guessers,
-                $guesser->guessers
-            );
-        } else {
-            $this->guessers[] = $guesser;
-        }
-    }
-}
-````
-
-???
-
-To understand this code, you need to get your brain around it. It takes some
-reading and thinking to fully understand all use cases in this method.
-
----
-
 ## Possible techniques
 
 * Extract method
@@ -283,64 +253,9 @@ reading and thinking to fully understand all use cases in this method.
 
 ---
 
-````php
-// Sonata\AdminBundle\Guesser\TypeGuesserChain
-public function __construct(array $guessers)
-{
-    foreach ($guessers as $guesser) {
-        if (!$guesser instanceof TypeGuesserInterface) {
-            throw new UnexpectedTypeException(
-                $guesser,
-                'Sonata\AdminBundle\Guesser\TypeGuesserInterface'
-            );
-        }
-        if ($guesser instanceof self) {
-            $this->guessers = array_merge(
-                $this->guessers,
-                $guesser->guessers
-            );
-        } else {
-            $this->guessers[] = $guesser;
-        }
-    }
-}
-````
-
----
-
-````php
-// Sonata\AdminBundle\Guesser\TypeGuesserChain
-public function __construct(array $guessers)
-{
-    foreach ($guessers as $guesser) {
-        $this->addGuesser($guesser);
-    }
-}
-
-private function addGuesser($guesser)
-{
-    if (!$guesser instanceof TypeGuesserInterface) {
-        throw new UnexpectedTypeException(
-            $guesser,
-            'Sonata\AdminBundle\Guesser\TypeGuesserInterface'
-        );
-    }
-    if ($guesser instanceof self) {
-        $this->guessers = array_merge(
-            $this->guessers,
-            $guesser->guessers
-        );
-    } else {
-        $this->guessers[] = $guesser;
-    }
-}
-````
-
-???
-
-Let's apply an extract method refactoring. The constructor is a lot more readable
-and can be understood in one glimpse. If you want to know how "adding a guesser"
-works, you can still go check in the private method (that could be refactored further).
+<video preload controls>
+    <source src="video/1-one-level-of-indentation.mp4"/>
+</video>
 
 ---
 
@@ -360,24 +275,6 @@ PSR2 shows this hidden extra depth
 
 ---
 
-````php
-// Sonata\AdminBundle\Datagrid\Pager
-public function setCursor($pos)
-{
-    if ($pos < 1) {
-        $this->cursor = 1;
-    } else {
-        if ($pos > $this->nbResults) {
-            $this->cursor = $this->nbResults;
-        } else {
-            $this->cursor = $pos;
-        }
-    }
-}
-````
-
----
-
 ## Techniques:
 
 * Early returns
@@ -386,60 +283,9 @@ public function setCursor($pos)
 
 ---
 
-````php
-// Sonata\AdminBundle\Datagrid\Pager
-public function setCursor($pos)
-{
-    if ($pos < 1) {
-        $this->cursor = 1;
-    } else {
-        if ($pos > $this->nbResults) {
-            $this->cursor = $this->nbResults;
-        } else {
-            $this->cursor = $pos;
-        }
-    }
-}
-````
-
----
-
-````php
-// Sonata\AdminBundle\Datagrid\Pager
-public function setCursor($pos)
-{
-    if ($pos < 1) {
-        $this->cursor = 1;
-        return;
-    }
-
-    if ($pos > $this->nbResults) {
-        $this->cursor = $this->nbResults;
-    } else {
-        $this->cursor = $pos;
-    }
-}
-````
-
----
-
-````php
-// Sonata\AdminBundle\Datagrid\Pager
-public function setCursor($pos)
-{
-    if ($pos < 1) {
-        $this->cursor = 1;
-        return;
-    }
-
-    if ($pos > $this->nbResults) {
-        $this->cursor = $this->nbResults;
-        return;
-    }
-
-    $this->cursor = $pos;
-}
-````
+<video preload controls>
+    <source src="video/1-one-level-of-indentation.mp4"/>
+</video>
 
 ---
 
@@ -453,25 +299,18 @@ public function setCursor($pos)
 ---
 
 ````php
-// FOS\UserBundle\Util\UserManipulator
-/**
- * Changes the password for the given user.
- *
- * @param string $username
- * @param string $password
- */
-public function changePassword($username, $password)
-{
-    $user = $this->findUserByUsernameOrThrowException($username);
-    $user->setPlainPassword($password);
-    $this->userManager->updateUser($user);
-}
+return array(
+    'type' => 'text',
+    'data' => array(
+        'text' => ' ' . $this->htmlToMarkdown($html)
+    )
+);
 ````
 
 ???
 
-If you don't see the body of the method, do you know if the password has to
-be hashed before calling the method?
+Do you know what this is? What this code represents? Can you ensure this is
+correct without a lot of cecks?
 
 ---
 
@@ -493,80 +332,10 @@ be hashed before calling the method?
 ---
 
 ````php
-// FOS\UserBundle\Util\UserManipulator
-/**
- * Changes the password for the given user.
- *
- * @param string $username
- * @param string $password
- */
-public function changePassword($username, $password)
-{
-    $user = $this->findUserByUsernameOrThrowException($username);
-    $user->setPlainPassword($password);
-    $this->userManager->updateUser($user);
-}
-````
-
----
-
-````php
-final class Username
-{
-    private $username;
-
-    public function __construct($username)
-    {
-        $this->validateUsername($username);
-        $this->username = $username;
-    }
-}
-````
-
-````php
-final class PlainPassword
-{
-    private $password;
-
-    public function __construct($password)
-    {
-        $this->validatePassword($pasword);
-        $this->password = $password;
-    }
-
-    public function hash();
-}
-````
-
-???
-
-We clearly show that our password is not encoded yet. We can also encapsulate
-the hash method in this object, since only PlainPassword objects will need to be
-hashed. This method can return f.e. a new HashedPassword object. You'll only need
-instanceof checks to know if your password is hashed or not, and calling one method
-will do the conversion.
-
-Also note the final keyword. This is needed to avoid other objects extending
-your value objects and being able to mess with the encapsulated data.
-
----
-
-````php
-// FOS\UserBundle\Util\UserManipulator
-/**
- * Changes the password for the given user.
- *
- * @param Username $username
- * @param PlainPassword $password
- */
-public function changePassword(
-    Username $username,
-    PlainPassword $password
-) {
-    $user = $this->findUserByUsernameOrThrowException($username);
-    $user->setPlainPassword($password);
-    $this->userManager->updateUser($user);
-}
+return new SirTrevorBlock(
+    'text',
+    array('text' => ' ' . $this->htmlToMarkdown($html))
+);
 ````
 
 ---
