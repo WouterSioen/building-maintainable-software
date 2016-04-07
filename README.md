@@ -120,8 +120,8 @@ Keep the SOLID rules in mind.
 
 ---
 
-<video controls>
-    <source src="video/step1-SRP.mov"/>
+<video preload controls>
+    <source src="video/step1-SRP.mp4"/>
 </video>
 
 ???
@@ -134,8 +134,8 @@ thing only.
 
 ---
 
-<video>
-    <source src="video/step2-make-dependencies-explicit-take-2.mov"/>
+<video preload controls>
+    <source src="video/step2-make-dependencies-explicit-take-2.mp4"/>
 </video>
 
 ???
@@ -152,8 +152,8 @@ move to more decoupled code later.
 
 ---
 
-<video>
-    <source src="video/step3-split-interface.mov"/>
+<video preload controls>
+    <source src="video/step3-split-interface.mp4"/>
 </video>
 
 ???
@@ -164,8 +164,8 @@ Interface Segregation Principle.
 
 ---
 
-<video>
-    <source src="video/step4-open-closed-part1.mov"/>
+<video preload controls>
+    <source src="video/step4-open-closed-part1.mp4"/>
 </video>
 
 ???
@@ -186,8 +186,8 @@ to change the order of converters or to remove a default one.
 
 ---
 
-<video>
-    <source src="video/step4-open-closed-part2.mov"/>
+<video preload controls>
+    <source src="video/step4-open-closed-part2.mp4"/>
 </video>
 
 ???
