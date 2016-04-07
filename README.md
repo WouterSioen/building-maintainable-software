@@ -335,46 +335,39 @@ return new SirTrevorBlock(
 
 ## Techniques
 
-* use Doctrine Collections
-* Write collection like repository classes
+* Extract method
+* Use a collection library (doctrine)
 
 ---
 
 ````php
-interface UserRepository
+final class HtmlToJson
 {
-    public function add(User $user);
-    public function remove(User $user);
+    /** @var array */
+    private $converters = array();
 
-    /** @return User */
-    public function find(UserId $id);
+    public function addConverter(Converter $converter)
+    {
+        $this->converters[] = $converter;
+    }
+
+    public function toJson($html);
 }
 ````
 
----
+???
 
-````php
-class DoctrineUserRepository extends EntityRepository implements
-    UserRepository
-{
-    public function add(User $user)
-    {
-        $this->getEntityManager()->persist($user);
-        $this->getEntityManager()->flush();
-    }
+I have a violation of this rule in my codebase, but I won't change this.
+If I would change this class to use a Collection (fe. a ConverterCollection),
+I'd need to depend upon implementations instead of on abstractions. Thats the
+only way I can enforce that only the right type of converters are available in
+my ConverterCollection.
 
-    public function remove(User $user)
-    {
-        $this->getEntityManager()->remove($user);
-        $this->getEntityManager()->flush();
-    }
+It would also require a lot more code to get me the same result.
 
-    public function find(UserId $id)
-    {
-        return $this->findOneById($id->getId());
-    }
-}
-````
+This shows clearly that these "rules" are in fact guidelines. I think the SOLID
+rules should be applied more strictly than the object calisthenics. Don't let
+object calisthenics mess up your decoupling.
 
 ---
 
