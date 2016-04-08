@@ -120,6 +120,38 @@ Keep the SOLID rules in mind.
 
 ---
 
+## Refactorings:
+
+<https://github.com/WouterSioen/sir-trevor-php/tree/v1.0>
+
+* Editor: <http://madebymany.github.io/sir-trevor-js/example.html>
+* Convert output to html
+* Convert html to output
+
+---
+
+## Library Structure:
+
+```
+▾ src/Sioen/
+  ▾ Tests/
+      ConverterTest.php
+  ▾ Types/
+      BaseConverter.php
+      BlockquoteConverter.php
+      ConverterInterface.php
+      HeadingConverter.php
+      IframeConverter.php
+      ImageConverter.php
+      ListConverter.php
+      ParagraphConverter.php
+    Converter.php
+    ToHtmlContext.php
+    ToJsonContext.php
+```
+
+---
+
 <iframe src="https://www.youtube.com/embed/Qqj9oRfP6gY?vq=hd720&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>
 
 ???
