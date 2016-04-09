@@ -63,7 +63,11 @@ Maintainable software allows __us__ to __quickly__:
 
 # Easy efforts
 
-### choose a code style
+![That's too easy](https://media.giphy.com/media/zG6MKhlBxIloc/giphy.gif)
+
+---
+
+## Choose a coding style
 
 * PSR-2 is most used
 * Can be enforced using php code sniffer
@@ -72,9 +76,7 @@ Maintainable software allows __us__ to __quickly__:
 
 ---
 
-# Easy efforts
-
-### Do code reviews
+## Do code reviews
 
 * Keep pull requests small for good reviews
 * Review more than code (commit messages, documentation,...)
@@ -154,7 +156,7 @@ Keep the SOLID rules in mind.
 
 ## Problem 1: SRP
 
-Every module or class should have responsibility over a **single part** of the functionality provided by the software, and that responsibility should be **entirely encapsulated** by the class
+> Every module or class should have responsibility over a **single part** of the functionality provided by the software, and that responsibility should be **entirely encapsulated** by the class
 
 ```
 class Converter
@@ -255,7 +257,7 @@ be easier later to completely remove these dependencies on details (implementati
 
 ## Problem 3: ISP
 
-no client should be forced to depend on methods it does not use
+> No client should be forced to depend on methods it does not use
 
 ```php
 interface ConverterInterface
@@ -347,7 +349,7 @@ our type.
 
 ## Problem 4: OCP
 
-software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification.
+> software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification.
 
 ???
 
@@ -451,6 +453,18 @@ It's good to note that it's really easy to get big discussions over these rules.
 
 <iframe src="https://www.youtube.com/embed/4e_uJRVxmTE?vq=hd720&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>
 
+???
+
+First I start with extracting a method. This doesn't fix our issue with two
+levels of indentation, but makes our staring point a lot cleaner. We know have
+a small method only containing our two indentation levels.
+
+After doing this extract method, I'm going to extract another method: the one
+that will find our cite node (so our deepest indentation level).
+
+Note that our functionality isn't 100% the same, but it's actually a little
+better. We now won't loose the content of a second "cite" html node.
+
 ---
 
 ## Note
@@ -478,6 +492,13 @@ PSR2 shows this hidden extra depth
 ---
 
 <iframe src="https://www.youtube.com/embed/A_MLFW3YyP4?vq=hd720&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>
+
+???
+
+This is the easiest case to refactor this out. We already have an early return
+so we can just remove the "else" statement. In most cases, you'll need to add
+the early return yourself or do an extract method before you'll be able to use
+an early return, because of the functionality after your else statement.
 
 ---
 
@@ -529,6 +550,14 @@ return new SirTrevorBlock(
     array('text' => ' ' . $this->htmlToMarkdown($html))
 );
 ````
+
+???
+
+This object clearly represents something from our domain. The properties in our
+value object also have clear names.
+
+The additional benefit is that we can typehint on these objects. This way, we're
+sure all our needed data is available.
 
 ---
 
