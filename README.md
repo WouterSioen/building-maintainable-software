@@ -152,6 +152,20 @@ Keep the SOLID rules in mind.
 
 ---
 
+## Problem 1: SRP
+
+Every module or class should have responsibility over a **single part** of the functionality provided by the software, and that responsibility should be **entirely encapsulated** by the class
+
+```
+class Converter
+{
+    public function toHtml($json);
+    public function toJson($html);
+}
+```
+
+---
+
 <iframe src="https://www.youtube.com/embed/Qqj9oRfP6gY?vq=hd720&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>
 
 ???
@@ -164,23 +178,92 @@ thing only.
 
 ---
 
+## In between:
+
+Bad naming:
+
+* `HtmlToJsonConverter`
+* `JsonToHtmlConverter`
+
+vs.
+
+* `Types\HeadingConverter`
+* `Types\ImageConverter`
+* ...
+
+???
+
+We were using the term "Converter" for two different aspects in our
+codebase: the main HtmlToJSon and JsonToHtml classes and the small
+classes that convert one building block at a time.
+
+I've decided to keep the "converter" suffix for our tiny building
+blocks, since they do the actual conversion between HTML and Json. The
+main classes lost their suffix. Their names still have enough meaning to
+make their intent clear.
+
+---
+
+## Problem 2: implicit dependencies
+
+```php
+class HtmlToJson
+{
+    public function toJson()
+    {
+        $toJsonContext = new ToJsonContext($node->nodeName);
+        ...
+    }
+}
+```
+
+```php
+class ToJsonContext
+{
+    public function __construct()
+    {
+        ...
+        new ParagraphConverter();
+        new HeadingConverter();
+    }
+}
+```
+
+???
+
+In our HtmlToJson class, we create a new ToJsonContext. In this context class
+(which implements some kind of strategy pattern), we'll create instances of a
+lot of other classes.
+
+When looking at the HtmlToJson class, we already see one explicit dependency.
+When looking futher, we depend on a lot more classes.
+
+We want to depend on as less details and more on abstractions. We'll need to do
+some steps to reach this goal.
+
+---
+
 <iframe src="https://www.youtube.com/embed/lXFIoUzRxMI?vq=hd720&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>
 
 ???
 
-Note that I've removed the "Converter" suffix from the two main classes. The
-small "type" classes that convert one small item are also called converters.
-The names "HtmlToJson" and "JsonToHtml" are explicit enough.
-
-This refactoring will remove the "ToHtmlContext" and "ToJsonContext". These
-classes were only used from the main entry points. They are instantiated
-in there so they are coupled. All the small type converters are thus also
-coupled. This refactoring makes this more explicit making it easier to
-move to more decoupled code later.
+In the first step, we'll just make the dependencies more implicit by moving
+all the instantions to the HtmlToJson and JsonToHtml classes. This way, it will
+be easier later to completely remove these dependencies on details (implementations).
 
 ---
 
-<iframe src="https://www.youtube.com/embed/KccB3jIRE88?vq=hd720&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>
+## Problem 3: ISP
+
+no client should be forced to depend on methods it does not use
+
+```php
+interface ConverterInterface
+{
+    public function toJson(\DOMElement $node);
+    public function toHtml(array $data);
+}
+```
 
 ???
 
@@ -188,17 +271,98 @@ We see that our classes always only use one method of our interface. We'll
 split the interface into a ToJson and ToHtml version to follow the
 Interface Segregation Principle.
 
+After splitting the interface, I can also split all the implementations to a
+ToJson and a ToHtml part.
+
+---
+
+<iframe src="https://www.youtube.com/embed/KccB3jIRE88?vq=hd720&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>
+
+---
+
+## In between: encapsulation
+
+`JsonToHtml\Converter` before:
+
+```php
+interface Converter
+{
+    function toHtml(array $data);
+}
+```
+
+`JsonToHtml\Converter` after:
+
+```php
+interface Converter
+{
+    function toHtml(array $data);
+    function matches(string $type);
+}
+```
+
+???
+
+Right now, the "knowledge" of which class could convert which "block" was
+available in the Main ToHtml and ToJson classes. By changing our "Converter"
+interface to have a "matches" method, we're able to encapsulate this knowledge
+in the classes themselves.
+
+This way, we don't need to know anything about our converters to be able to use
+them. This encapsulation enables us to invert the dependencies.
+
+---
+
+`function convert` before:
+
+```php
+switch ($type) {
+    case 'heading':
+        $converter = new HeadingConverter();
+        break;
+    ...
+}
+
+return $converter->toHtml($data);
+```
+
+`function convert` after:
+
+```php
+foreach ($this->converters as $converter) {
+    if ($converter->matches($type)) {
+        return $converter->toJson($data);
+    }
+}
+```
+
+???
+
+We off course had to do some changes to make this "matching" work. I've moved
+all converters to an array. The switch statement is altered to a loop which
+returns the converted data if our converter matches (thus is able to convert)
+our type.
+
+---
+
+## Problem 4: OCP
+
+software entities (classes, modules, functions, etc.) should be open for extension, but closed for modification.
+
+???
+
+Our classes aren't following the open closed principle yet. When somebody
+wants to use a custom converter, he has to get in to the package and add it
+himself, or he has to create a Fork.
+
+We want people to be able to use our package, but add extra converters to it
+without touching our code.
+
 ---
 
 <iframe src="https://www.youtube.com/embed/quLBHjEHJzg?vq=hd720&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>
 
 ???
-
-I've already done some refactoring before we'll go to this step. I've
-split the implementation of all converters to a toJson and toHtml version.
-
-I've also gave them a "match" method, so the main entry point classes don't
-have to decide which class to use anymore. This gives it one less responsibility.
 
 In this refactoring, we're going to introduce an "addConverter" method
 which makes our class open for extension. This way, other persons can add
@@ -224,6 +388,16 @@ get the behaviour we want.
 Note that I've made all classes final later, to avoid extending them. If
 classes can be extended, they can still be modified. I want my class to be
 closed to modifications, since it already has an extension point.
+
+---
+
+## Result
+
+* smaller, better designed classes
+* more flexible
+* less coupling
+
+![9.84 rating on scrutinizer](img/rating.png)
 
 ---
 
