@@ -107,7 +107,7 @@ This will make it easier for you to get different insights in your code.
 * Make your project easy to set up (locally)
   * use vagrant/docker
   * add a setup guide if needed (README)
-  * make code (without interface) "runnable" through tests
+  * make code "runnable" through tests
 * Make your project easy to deploy
   * automate deployment
   * keep your master/default branch stable
