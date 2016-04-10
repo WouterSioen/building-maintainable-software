@@ -42,13 +42,14 @@ Maintainable software allows __us__ to __quickly__:
 * Add new features
 * Improve usability
 * Increase performance
-* Make a fix that prevents a bug from occurring in future
+* Make a fix that prevents a bug from occurring in the future
 
 ---
 
 # Why
 
 * Strong timeframes
+* Fastly changing requirements
 * Developers leaving teams
 * You read more than you code
 
@@ -72,7 +73,7 @@ Maintainable software allows __us__ to __quickly__:
 * PSR-2 is most used
 * Can be enforced using php code sniffer
 * php-cs-fixer can autofix (some) issues
-* use pre-commit hooks and ci to enforce it
+* Use pre-commit hooks and ci to enforce it
 
 ---
 
@@ -105,12 +106,12 @@ This will make it easier for you to get different insights in your code.
 # Setup
 
 * Make your project easy to set up (locally)
-  * use vagrant/docker
-  * add a setup guide if needed (README)
-  * make code "runnable" through tests
+  * Use vagrant/docker
+  * Add a setup guide if needed (README)
+  * Make code "runnable" through tests
 * Make your project easy to deploy
-  * automate deployment
-  * keep your master/default branch stable
+  * Automate deployment
+  * Keep your master/default branch stable
 
 ---
 
@@ -395,9 +396,9 @@ closed to modifications, since it already has an extension point.
 
 ## Result
 
-* smaller, better designed classes
-* more flexible
-* less coupling
+* Smaller, better designed classes
+* More flexible
+* Less coupling
 
 ![9.84 rating on scrutinizer](img/rating.png)
 
@@ -411,10 +412,10 @@ closed to modifications, since it already has an extension point.
 
 ???
 
-* maintainability
-* readability
-* testability
-* comprehensibility
+* Maintainability
+* Readability
+* Testability
+* Comprehensibility
 
 ---
 
@@ -438,8 +439,8 @@ It's good to note that it's really easy to get big discussions over these rules.
 # 1. Only one indentation level per method
 
 * Single responsibility principle
-* reusable code
-* readable code
+* Reusable code
+* Readable code
 
 ---
 
