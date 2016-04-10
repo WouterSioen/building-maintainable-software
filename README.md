@@ -125,8 +125,6 @@ Keep the SOLID rules in mind.
 
 ## Refactorings:
 
-<https://github.com/WouterSioen/sir-trevor-php/tree/v1.0>
-
 * Editor: <http://madebymany.github.io/sir-trevor-js/example.html>
 * Convert output to html
 * Convert html to output
@@ -152,6 +150,25 @@ Keep the SOLID rules in mind.
     ToHtmlContext.php
     ToJsonContext.php
 ```
+
+<https://github.com/WouterSioen/sir-trevor-php/tree/v1.0>
+
+---
+
+## What's maintainable?
+
+* Small codebase
+* Has some tests
+
+---
+
+## What's not maintainable
+
+* Coupling
+* Bad naming
+* No "domain" knowledge
+* Bad class design
+* Not "configurable" (open for extension)
 
 ---
 
