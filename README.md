@@ -51,7 +51,7 @@ Maintainable software allows __us__ to __quickly__:
 * Strong timeframes
 * Fastly changing requirements
 * Developers leaving teams
-* You read more than you code
+* You read more than you write code
 
 ---
 
@@ -436,7 +436,7 @@ closed to modifications, since it already has an extension point.
 
 ---
 
-# Disclamer
+# Disclaimer
 
 * Guidelines, not rules
 * I don't always follow them myself
