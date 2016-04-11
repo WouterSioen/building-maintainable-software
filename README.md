@@ -117,7 +117,7 @@ This will make it easier for you to get different insights in your code.
 
 # SOLID
 
-Keep the SOLID rules in mind.
+Keep the SOLID principles in mind.
 
 <https://leanpub.com/principles-of-package-design>
 
