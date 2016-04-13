@@ -46,6 +46,10 @@ Maintainable software allows __us__ to __quickly__:
 * Increase performance
 * Make a fix that prevents a bug from occurring in the future
 
+???
+
+Quickly changeable, fast moving
+
 ---
 
 # Why
@@ -82,12 +86,12 @@ Maintainable software allows __us__ to __quickly__:
 ## Do code reviews
 
 * Keep pull requests/commits atomic
+* Always review your own code
 * Add context about your feature
 * Review more than code (commit messages, documentation,...)
 * Ask an extra opinion if needed
 * Don't only give negative feedback
 * Automate automatable stuff
-* Always review your own code
 
 ???
 
@@ -269,7 +273,7 @@ class HtmlToJson
 ```php
 class ToJsonContext
 {
-    public function __construct()
+    public function __construct($nodeName)
     {
         ...
         new ParagraphConverter();
@@ -760,7 +764,7 @@ sure all our needed data is available.
 
 ## Techniques
 
-* Extract method
+* Extract class
 * Use a collection library (doctrine)
 
 ---
@@ -825,7 +829,7 @@ class Order
     ) {
         $this->status = $status;
 
-        if ((string) $status === OrderStatus::PAID) {
+        if ($status->isPaid()) {
             $this->sendEmail(
                 $customer
                     ->getData()
@@ -856,7 +860,7 @@ class Order
     ) {
         $this->status = $status;
 
-        if ((string) $status === OrderStatus::PAID) {
+        if ($status->isPaid()) {
             $this->sendEmail(
                 $customer
                     ->getData()
@@ -880,7 +884,7 @@ class Order
     ) {
         $this->status = $status;
 
-        if ((string) $status === OrderStatus::PAID) {
+        if ($status->isPaid()) {
             $customer->sendEmail('Your order has been paid');
         }
     }
@@ -1123,8 +1127,8 @@ class Address
 }
 
 $user = new User();
-$user->setId(1);
 $user->setEmail('wouter@sumocoders.be');
+$user->setId($database->save($user));
 
 $address = new Address();
 $address->setStreet('Afrikalaan');
