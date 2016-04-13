@@ -79,7 +79,8 @@ Maintainable software allows __us__ to __quickly__:
 
 ## Do code reviews
 
-* Keep pull requests small for good reviews
+* Keep pull requests/commits atomic
+* Add context about your feature
 * Review more than code (commit messages, documentation,...)
 * Ask an extra opinion if needed
 * Don't only give negative feedback
