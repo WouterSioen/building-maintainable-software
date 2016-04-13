@@ -10,6 +10,8 @@
 
 :github: [WouterSioen](http://github.com/WouterSioen)
 
+:envelope: [wouter@sumocoders.be](mailto:wouter@sumocoders.be)
+
 ---
 
 ## I work at Sumocoders
