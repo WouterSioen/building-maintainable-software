@@ -199,6 +199,32 @@ thing only.
 
 ---
 
+```php
+class Converter
+{
+    public function toHtml($json);
+    public function toJson($html);
+}
+```
+
+becomes:
+
+```php
+class JsonToHtmlConverter
+{
+    public function toHtml($json);
+}
+```
+
+```php
+class HtmlToJsonConverter
+{
+    public function toJson($html);
+}
+```
+
+---
+
 ## In between:
 
 Bad naming:
@@ -274,6 +300,35 @@ be easier later to completely remove these dependencies on details (implementati
 
 ---
 
+```php
+public function toHtml($json) {
+    ...
+    foreach ($input['data'] as $block) {
+        $toHtmlContext = new ToHtmlContext($block['type']);
+        $html .= $toHtmlContext->getHtml($block['data']);
+    }
+    return $html;
+}
+```
+
+becomes:
+
+```php
+public function toHtml($json) {
+    ...
+    foreach ($input['data'] as $block) {
+        $html .= $this->convert($block['type'], $block['data']);
+    }
+    return $html;
+}
+
+private function convert($type, array $data) {
+    // content of the ToHtmlContext file
+}
+```
+
+---
+
 ## Problem 3: ISP
 
 > No client should be forced to depend on methods it does not use
@@ -301,9 +356,37 @@ ToJson and a ToHtml part.
 
 ---
 
-## In between: encapsulation
+```php
+interface ConverterInterface
+{
+    public function toJson(\DOMElement $node);
+    public function toHtml(array $data);
+}
+```
 
-`JsonToHtml\Converter` before:
+becomes:
+
+```php
+namespace HtmlToJson;
+
+interface Converter
+{
+    public function toJson(\DOMElement $node);
+}
+```
+
+```php
+namespace JsonToHtml;
+
+interface Converter
+{
+    public function toHtml(array $data);
+}
+```
+
+---
+
+## In between: encapsulation
 
 ```php
 interface Converter
@@ -312,7 +395,7 @@ interface Converter
 }
 ```
 
-`JsonToHtml\Converter` after:
+becomes:
 
 ```php
 interface Converter
@@ -334,25 +417,29 @@ them. This encapsulation enables us to invert the dependencies.
 
 ---
 
-`function convert` before:
-
 ```php
-switch ($type) {
-    case 'heading':
-        $converter = new HeadingConverter();
-        break;
-    ...
-}
+function convert($type, $data)
+{
+    switch ($type) {
+        case 'heading':
+            $converter = new HeadingConverter();
+            break;
+        ...
+    }
 
-return $converter->toHtml($data);
+    return $converter->toHtml($data);
+}
 ```
 
-`function convert` after:
+becomes:
 
 ```php
-foreach ($this->converters as $converter) {
-    if ($converter->matches($type)) {
-        return $converter->toJson($data);
+function convert($type, $data)
+{
+    foreach ($this->converters as $converter) {
+        if ($converter->matches($type)) {
+            return $converter->toJson($data);
+        }
     }
 }
 ```
@@ -395,6 +482,31 @@ to change the order of converters or to remove a default one.
 
 ---
 
+```php
+public function __construct()
+{
+    $this->converters[] = new HeadingConverter();
+    $this->converters[] = new ListConverter();
+}
+```
+
+becomes:
+
+```php
+public function __construct()
+{
+    $this->addConverter(new HeadingConverter());
+    $this->addConverter(new ListConverter());
+}
+
+public function addConverter(Converter $converter)
+{
+    $this->converters[] = $converter;
+}
+```
+
+---
+
 <iframe src="https://www.youtube.com/embed/3w7cNMn7duc?vq=hd720&rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>
 
 ???
@@ -409,6 +521,22 @@ get the behaviour we want.
 Note that I've made all classes final later, to avoid extending them. If
 classes can be extended, they can still be modified. I want my class to be
 closed to modifications, since it already has an extension point.
+
+---
+
+```php
+public function __construct()
+{
+    $this->converters[] = new HeadingConverter();
+    $this->converters[] = new ListConverter();
+}
+```
+
+becomes:
+
+```php
+// I'm fully removed from the code base
+```
 
 ---
 
@@ -483,6 +611,36 @@ that will find our cite node (so our deepest indentation level).
 
 Note that our functionality isn't 100% the same, but it's actually a little
 better. We now won't loose the content of a second "cite" html node.
+
+---
+
+```php
+function getCiteHtml(\DOMElement $node) {
+    foreach ($node->childNodes as $child) {
+        if ($child->nodeName == 'cite') {
+            $html = $child->ownerDocument->saveXML($child);
+            $cite = ' ' . $this->htmlToMarkdown($html);
+        }
+    }
+}
+```
+
+becomes:
+
+```php
+private function getCiteHtml(\DOMElement $node)
+{
+    foreach ($this->getCiteNodes($node) as $child) {
+        $html = $child->ownerDocument->saveXML($child);
+        $cite .= ' ' . $this->htmlToMarkdown($html);
+    }
+}
+
+private function getCiteNodes(\DOMElement $node)
+{
+    // I filter on $child->nodeName == 'cite' in here
+}
+```
 
 ---
 
@@ -562,6 +720,17 @@ correct without a lot of cecks?
 * f.e. Money, DateRange, GeoLocation
 
 ---
+
+````php
+return array(
+    'type' => 'text',
+    'data' => array(
+        'text' => ' ' . $this->htmlToMarkdown($html)
+    )
+);
+````
+
+becomes:
 
 ````php
 return new SirTrevorBlock(
