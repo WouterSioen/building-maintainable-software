@@ -97,6 +97,8 @@ Always code as if the guy who ends up maintaining your code will be a violent ps
 * Don't only give negative feedback
 * Automate automatable stuff
 
+<http://verraes.net/2013/10/pre-merge-code-reviews/>
+
 ???
 
 Doing code reviews is really important because you know too much about your own code.
