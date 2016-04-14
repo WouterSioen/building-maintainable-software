@@ -81,9 +81,9 @@ Always code as if the guy who ends up maintaining your code will be a violent ps
 ## Choose a coding style
 
 * PSR-2 is most used
-* Can be enforced using php code sniffer
-* php-cs-fixer can autofix (some) issues
-* Use pre-commit hooks and ci to enforce it
+* Can be enforced using [php code sniffer](https://github.com/squizlabs/PHP_CodeSniffer)
+* [php-cs-fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) can autofix (some) issues
+* Use [pre-commit](https://github.com/woutersioen/pre-commit) hooks and ci to enforce it
 
 ---
 
