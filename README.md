@@ -59,6 +59,10 @@ Quickly changeable, fast moving
 * Developers leaving teams
 * You read more than you write code
 
+???
+
+Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live.
+
 ---
 
 > You need to write code that minimizes the time it would take someone else to understand it.
