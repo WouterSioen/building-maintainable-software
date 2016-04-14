@@ -107,12 +107,11 @@ This will make it easier for you to get different insights in your code.
 
 ---
 
-# Refactoring
+# Analyse your code
 
-* Should be an integrated part of your workflow
-* Automated tests can help you validate refactorings
 * Look out for duplication (phpcpd)
 * Static analysis can help you here
+* Most editors/IDE's have implementations
 
 ---
 
