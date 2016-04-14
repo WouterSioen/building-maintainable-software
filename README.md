@@ -118,7 +118,7 @@ This will make it easier for you to get different insights in your code.
 # Setup
 
 * Make your project easy to set up (locally)
-  * Use vagrant/docker
+  * Use [vagrant](https://www.vagrantup.com/) or [docker](https://www.docker.com/)
   * Add a setup guide if needed (README)
   * Make code "runnable" through tests
 * Make your project easy to deploy
